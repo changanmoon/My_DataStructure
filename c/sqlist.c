@@ -95,24 +95,52 @@ void init_sqlist_via_array(sqlist *L, int array[], int len_array) {
 	}
 }
 
+//将两个顺序表归并
+//将两个顺序表合并，要求元素从小到大
+void merge_sqlist(sqlist *L1, sqlist *L2, sqlist *L3) {
+	int i = 0, j = 0, k = 0;
+	while (i < L1->length && j < L2->length) {
+		if (L1->elem[i] < L2->elem[j]) {
+			L3->elem[k] = L1->elem[i];
+			i++; k++;
+		}
+		else {
+			L3->elem[k] = L2->elem[j];
+			j++; k++;
+		}
+	}
+	while (i < L1->length) {
+		L3->elem[k] = L1->elem[i];
+		i++; k++;
+	}
+	while (j < L2->length) {
+		L3->elem[k] = L2->elem[j];
+		j++; k++;
+	}
+	L3->length = k;
+}
+
 //运行程序
 int main(int argc, char *argv[]) {
-	sqlist list; //定义顺序表
+	sqlist list1, list2, list3; //定义顺序表
 	//初始化和赋值操作
 	for (int i = 1; i <= 6; i++)
-		append_to_sqlist(&list, i);
-	show_sqllist(&list);
+		append_to_sqlist(&list1, i);
+	show_sqllist(&list1);
 	//给定位置移除元素
-	remove_from_sqlist(&list, 0);
-	show_sqllist(&list);
+	remove_from_sqlist(&list1, 0);
+	show_sqllist(&list1);
 	//删除末尾元素
-	delete_from_sqlist(&list);
-	show_sqllist(&list);
+	delete_from_sqlist(&list1);
+	show_sqllist(&list1);
 	//指定位置插入元素
-	insert_into_sqlist(&list, 2, 7);
-	show_sqllist(&list);
+	insert_into_sqlist(&list1, 0, 1);
+	show_sqllist(&list1);
 	//用数组重新初始化
-	int a[3] = {1, 4, 9};
-	init_sqlist_via_array(&list, a, 3);
-	show_sqllist(&list);
+	int a[3] = {6, 7, 8};
+	init_sqlist_via_array(&list2, a, 3);
+	show_sqllist(&list2);
+	//将两个顺序表进行归并
+	merge_sqlist(&list1, &list2, &list3);
+	show_sqllist(&list3);
 }
