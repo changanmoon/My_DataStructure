@@ -86,6 +86,15 @@ void clear_sqlist(sqlist *L) {
 	L->length = 0;
 }
 
+//从数组初始化顺序表
+void init_sqlist_via_array(sqlist *L, int array[], int len_array) {
+	if (L->length != 0)  clear_sqlist(L);
+	for (int i = 0; i < len_array; i++) {
+		L->elem[i] = array[i];
+		++L->length;
+	}
+}
+
 //运行程序
 int main(int argc, char *argv[]) {
 	sqlist list; //定义顺序表
@@ -101,5 +110,9 @@ int main(int argc, char *argv[]) {
 	show_sqllist(&list);
 	//指定位置插入元素
 	insert_into_sqlist(&list, 2, 7);
+	show_sqllist(&list);
+	//用数组重新初始化
+	int a[3] = {1, 4, 9};
+	init_sqlist_via_array(&list, a, 3);
 	show_sqllist(&list);
 }
