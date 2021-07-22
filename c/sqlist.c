@@ -1,3 +1,4 @@
+//sqlist.c 顺序表
 #include <stdio.h>
 #define MAXSIZE 200 //最大元素数目
 
