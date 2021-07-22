@@ -1,3 +1,4 @@
+//sqlist.cpp 顺序表
 #include <iostream>
 #define MAXSIZE 200 //最大元素数目
 
