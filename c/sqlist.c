@@ -50,9 +50,8 @@ void delete_from_sqlist(sqlist *L) {
 void insert_into_sqlist(sqlist *L, int loc, int val) {
 	if (L->length >= MAXSIZE) return; //如果满了，则不插入
 	else {
-		for (int i = L->length; i >= loc; i--) {
+		for (int i = L->length; i >= loc; i--)
 			L->elem[i] = L->elem[i - 1];
-		}
 		L->elem[loc] = val;
 		++L->length;
 	}
@@ -99,24 +98,15 @@ void init_sqlist_via_array(sqlist *L, int array[], int len_array) {
 //将两个顺序表合并，要求元素从小到大
 void merge_sqlist(sqlist *L1, sqlist *L2, sqlist *L3) {
 	int i = 0, j = 0, k = 0;
-	while (i < L1->length && j < L2->length) {
-		if (L1->elem[i] < L2->elem[j]) {
-			L3->elem[k] = L1->elem[i];
-			i++; k++;
-		}
-		else {
-			L3->elem[k] = L2->elem[j];
-			j++; k++;
-		}
-	}
-	while (i < L1->length) {
-		L3->elem[k] = L1->elem[i];
-		i++; k++;
-	}
-	while (j < L2->length) {
-		L3->elem[k] = L2->elem[j];
-		j++; k++;
-	}
+	while (i < L1->length && j < L2->length)
+		if (L1->elem[i] < L2->elem[j])
+			L3->elem[k++] = L1->elem[i++];
+		else
+			L3->elem[k++] = L2->elem[j++];
+	while (i < L1->length)
+		L3->elem[k++] = L1->elem[i++];
+	while (j < L2->length)
+		L3->elem[k++] = L2->elem[j++];
 	L3->length = k;
 }
 
